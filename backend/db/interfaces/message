@@ -1,0 +1,8 @@
+import { IUser } from "./user";
+
+export interface IMessage {
+  sender: string;
+  group: string;
+  content: string;
+  timestamp: Date;
+}
