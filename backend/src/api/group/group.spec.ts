@@ -10,13 +10,12 @@ describe("global testing", () => {
     return request(app).get("/api/group").expect(200);
   });
 
-  // it("should NOT find the route", async () => {
-  //   const res = await request(app).get("/api/books");
-  //   expect(res.statusCode).not.toEqual(404);
-  // });
-
-  // it("should call to addBook and failed", async () => {
-  //   const res = await request(app).post("/api/books");
-  //   expect(res.statusCode).toEqual(400);
-  // });
+  it("should create a new group", async () => {
+    return request(app)
+      .post("/api/group")
+      .send({
+        group_name: "test-group",
+      })
+      .expect(201);
+  });
 });
