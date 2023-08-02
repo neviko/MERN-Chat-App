@@ -2,6 +2,10 @@ import { app } from "./app";
 import http from "http";
 import { Server } from "socket.io";
 import { Eevents } from "./src/common/enums/events";
+import { dbConnect } from "./src/db/connection";
+import * as dotenv from "dotenv";
+dotenv.config({ path: __dirname + "/.env" });
+
 const PORT = process.env.PORT || 5000;
 
 const server = http.createServer(app);
@@ -29,4 +33,5 @@ server.on("error", (err) => {
 });
 server.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
+  dbConnect();
 });
