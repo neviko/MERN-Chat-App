@@ -9,7 +9,6 @@ interface IProps {
   nickname: string;
   socket: Socket;
   chatMessages: TMessage[];
-  onMessageSent: (message: TMessage) => void;
 }
 
 export const Chat: React.FC<IProps> = ({
@@ -17,7 +16,6 @@ export const Chat: React.FC<IProps> = ({
   nickname,
   socket,
   chatMessages,
-  onMessageSent,
 }) => {
   const [sendMessage, setSendMessage] = useState<string>("");
 
@@ -30,8 +28,6 @@ export const Chat: React.FC<IProps> = ({
     };
     try {
       await socket.emit("message", message);
-
-      onMessageSent(message);
       setSendMessage("");
     } catch (e) {
       console.error(e);

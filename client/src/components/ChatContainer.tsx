@@ -27,6 +27,10 @@ export const ChatContainer: React.FC<IProps> = ({ messages, nickname }) => {
       try {
         socket = io("http://localhost:5000");
         console.log("socket connected");
+
+        socket.on("message-from-server", (message: TMessage) => {
+          setChatMessages((messages) => [...messages, message]);
+        });
       } catch (e) {
         console.error("error while connecting to websocket", e);
       }
@@ -63,7 +67,7 @@ export const ChatContainer: React.FC<IProps> = ({ messages, nickname }) => {
           group_name: groupName,
         }
       );
-      socket.emit("joinRoom", "roomId");
+      await socket.emit("join-group", newGroup.id);
 
       console.log(newGroup);
       setGroups([...groups, newGroup]);
@@ -98,9 +102,6 @@ export const ChatContainer: React.FC<IProps> = ({ messages, nickname }) => {
             groupId={selectedGroup?.id || ""}
             nickname={nickname}
             chatMessages={chatMessages}
-            onMessageSent={(message: TMessage) => {
-              setChatMessages([...chatMessages, message]);
-            }}
           />
         </div>
 
