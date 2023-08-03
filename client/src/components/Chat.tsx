@@ -1,8 +1,9 @@
-import { Button, Input } from "@mui/material";
+import { Button, Input, TextField } from "@mui/material";
 import { useState, useEffect } from "react";
 import { TMessage } from "../common/types/message";
 import { Message } from "./Message";
 import { Socket } from "socket.io-client";
+import "../css/Chat.css";
 
 interface IProps {
   groupId: string;
@@ -50,12 +51,15 @@ export const Chat: React.FC<IProps> = ({
       })}
 
       <div style={styles.footerInput}>
-        <Input
+        <TextField
           title="Message"
           placeholder="Type a Message"
+          hiddenLabel
+          variant="filled"
           value={sendMessage}
           onChange={(e) => setSendMessage(e.target.value)}
         />
+
         <Button disabled={!!!sendMessage} onClick={handleSendClick}>
           SEND
         </Button>
@@ -77,5 +81,8 @@ const styles: { [key: string]: React.CSSProperties } = {
     width: "100%",
     alignItems: "flex-start",
     alignSelf: "flex-end",
+    position: "absolute",
+    bottom: 0,
+    maxWidth: "inherit",
   },
 };
