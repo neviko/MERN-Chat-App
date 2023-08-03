@@ -6,6 +6,7 @@ import ChatRegistration from "./components/ChatRegistration";
 import { UseFetchData } from "./components/UseFetchData";
 import { BASE_URL } from "./constants/url";
 import axios from "axios";
+import { ChatContainer } from "./components/ChatContainer";
 
 let socket;
 const url = `${BASE_URL}/api/group`;
@@ -43,11 +44,12 @@ function App() {
   return (
     <div className="App">
       <h1>WeMatch Chat App</h1>
-      {!nickname && (
+      {/* {!nickname && (
         <ChatRegistration
           onNicknameSet={(nickName: string) => setNickname(nickName)}
         />
-      )}
+      )} */}
+      <ChatContainer groupNames={["a", "b", "c"]} messages={[]} />
     </div>
   );
 }

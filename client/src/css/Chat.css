@@ -1,0 +1,15 @@
+.container {
+  border: 3px solid gray;
+  margin: 2px;
+  padding: 3px;
+}
+
+.groups-container {
+  flex: 1;
+  height: 100vh;
+}
+
+.messages-container {
+  flex: 4;
+  height: 100vh;
+}
