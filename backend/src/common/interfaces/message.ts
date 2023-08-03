@@ -1,8 +1,9 @@
+import { IGroup } from "./group";
 import { IUser } from "./user";
 
 export interface IMessage {
-  sender: string;
-  group: string;
+  sender: IUser;
+  group: IGroup;
   content: string;
   timestamp: Date;
 }

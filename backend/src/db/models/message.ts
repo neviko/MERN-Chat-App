@@ -1,5 +1,5 @@
 import { Schema, model, connect, Types } from "mongoose";
-import { IMessage } from "../interfaces/message";
+import { IMessage } from "../../common/interfaces/message";
 
 const messageSchema = new Schema<IMessage>({
   sender: { type: Types.ObjectId, ref: "User" },

@@ -39,12 +39,15 @@ export const ChatContainer: React.FC<IProps> = ({ messages }) => {
 
   const handleNewGroupClick = async (groupName: string) => {
     try {
-      const newGroup = await axios.post(url, {
+      const { data: newGroup } = await axios.post<Group>(url, {
         group_name: groupName,
       });
 
-      //TODO: add new group to the groups state
-    } catch (e) {}
+      console.log(newGroup);
+      setGroups([...groups, newGroup]);
+    } catch (e) {
+      console.error("something wrong wrong while creating a new group");
+    }
   };
 
   return (
