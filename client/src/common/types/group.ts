@@ -1,4 +1,4 @@
-export type Group = {
+export type TGroup = {
   name: string;
   id: string;
   users?: any[];

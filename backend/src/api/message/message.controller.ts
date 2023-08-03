@@ -4,10 +4,11 @@ import { GroupModel } from "../../db/models/group";
 
 const router = express.Router();
 
-router.get("/:groupId", async (req: Request, res: Response) => {
+router.get("/:group_id", async (req: Request, res: Response) => {
   try {
     //TODO: add pagination
-    const messages = await fetchMessagesByGroup(req.params.groupId);
+    console.log(req.params.group_id);
+    const messages = await fetchMessagesByGroup(req.params.group_id);
     res.status(200);
     res.send(messages);
   } catch (e) {

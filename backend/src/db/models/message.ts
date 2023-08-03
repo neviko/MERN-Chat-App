@@ -2,9 +2,9 @@ import { Schema, model, connect, Types } from "mongoose";
 import { IMessage } from "../../common/interfaces/message";
 
 const messageSchema = new Schema<IMessage>({
-  sender: { type: Types.ObjectId, ref: "User" },
-  group: { type: Types.ObjectId, ref: "Group" },
-  content: { type: String, required: true },
+  sender: { type: String, ref: "User" },
+  groupId: { type: String, ref: "Group" },
+  text: { type: String, required: true },
   timestamp: { type: Date, default: Date.now },
 });
 

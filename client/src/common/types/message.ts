@@ -1,4 +1,6 @@
-export type Message = {
+export type TMessage = {
   sender: string;
-  timestamp: Date;
+  timestamp: string;
+  text: string;
+  groupId: string;
 };

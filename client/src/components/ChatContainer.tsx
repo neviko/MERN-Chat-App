@@ -1,29 +1,40 @@
 import React, { useEffect, useState } from "react";
-import { Message } from "../common/types/message";
+import { TMessage } from "../common/types/message";
 import "../css/Chat.css";
 import { GroupItem } from "./GroupItem";
 import { Button } from "@mui/material";
-import { Group } from "../common/types/group";
+import { TGroup } from "../common/types/group";
 import axios from "axios";
 import { BASE_URL } from "../constants/url";
 import { LabelButtonPair } from "./LabelButtonPair";
-
-const url = `${BASE_URL}/api/group`;
+import { Chat } from "./Chat";
+import { io, Socket } from "socket.io-client";
 
 interface IProps {
-  groups: Group[];
-  messages: Message[];
+  groups: TGroup[];
+  messages: TMessage[];
+  nickname: string;
 }
+let socket: any;
 
-export const ChatContainer: React.FC<IProps> = ({ messages }) => {
-  const [selectedGroup, setSelectedGroup] = useState<Group>();
-  const [groups, setGroups] = useState<Group[]>([]);
+export const ChatContainer: React.FC<IProps> = ({ messages, nickname }) => {
+  const [selectedGroup, setSelectedGroup] = useState<TGroup>();
+  const [groups, setGroups] = useState<TGroup[]>([]);
+  const [chatMessages, setChatMessages] = useState<TMessage[]>([]);
 
   useEffect(() => {
     (async () => {
-      const { data } = await axios.get<Group[]>(url);
-      console.log(data);
+      try {
+        socket = io("http://localhost:5000");
+        console.log("socket connected");
+      } catch (e) {
+        console.error("error while connecting to websocket", e);
+      }
+
+      const { data } = await axios.get<TGroup[]>(`${BASE_URL}/api/group`);
+
       if (data) {
+        console.log(data);
         setGroups(data);
       }
     })();
@@ -31,17 +42,28 @@ export const ChatContainer: React.FC<IProps> = ({ messages }) => {
 
   useEffect(() => {
     (async () => {
-      console.log("a new group selected", selectedGroup);
-
-      //TODO: fetch messages
+      if (!selectedGroup) {
+        return;
+      }
+      console.log("a group selected", selectedGroup);
+      await socket.emit("join-group", selectedGroup.id);
+      const { data } = await axios.get<TMessage[]>(
+        `${BASE_URL}/api/message/${selectedGroup.id}`
+      );
+      console.log(data);
+      setChatMessages(data);
     })();
   }, [selectedGroup]);
 
   const handleNewGroupClick = async (groupName: string) => {
     try {
-      const { data: newGroup } = await axios.post<Group>(url, {
-        group_name: groupName,
-      });
+      const { data: newGroup } = await axios.post<TGroup>(
+        `${BASE_URL}/api/group`,
+        {
+          group_name: groupName,
+        }
+      );
+      socket.emit("joinRoom", "roomId");
 
       console.log(newGroup);
       setGroups([...groups, newGroup]);
@@ -68,7 +90,23 @@ export const ChatContainer: React.FC<IProps> = ({ messages }) => {
       </div>
 
       {/*messages container*/}
-      <div className="messages-container container"></div>
+      <div className="messages-container container">
+        {/* messages */}
+        <div>
+          <Chat
+            socket={socket}
+            groupId={selectedGroup?.id || ""}
+            nickname={nickname}
+            chatMessages={chatMessages}
+            onMessageSent={(message: TMessage) => {
+              setChatMessages([...chatMessages, message]);
+            }}
+          />
+        </div>
+
+        {/* input text */}
+        <div></div>
+      </div>
     </div>
   );
 };

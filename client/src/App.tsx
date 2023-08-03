@@ -1,21 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import { io, Socket } from "socket.io-client";
 import { ChatContainer } from "./components/ChatContainer";
-
-let socket;
+import { LabelButtonPair } from "./components/LabelButtonPair";
 
 function App() {
-  const [nickname, setNickname] = useState<string>();
+  const [nickname, setNickname] = useState<string>("");
 
-  useEffect(() => {
-    try {
-      socket = io("http://localhost:5000");
-      console.log("socket connected");
-    } catch (e) {
-      console.error("error while connecting to websocket", e);
-    }
-  }, []);
+  useEffect(() => {}, []);
 
   useEffect(() => {
     (async () => {
@@ -32,14 +23,15 @@ function App() {
   return (
     <div className="App">
       <h1>WeMatch Chat App</h1>
-      {/* {!nickname && (
+      {!nickname && (
         <LabelButtonPair
           buttonText="Login"
           labelText="Insert a Nickname"
           onTextSet={(nickName: string) => setNickname(nickName)}
         />
-      )} */}
+      )}
       <ChatContainer
+        nickname={nickname}
         groups={[
           { id: "id", name: "name" },
           { id: "id2", name: "name2" },
