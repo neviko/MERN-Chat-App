@@ -49,7 +49,13 @@ function App() {
           onNicknameSet={(nickName: string) => setNickname(nickName)}
         />
       )} */}
-      <ChatContainer groupNames={["a", "b", "c"]} messages={[]} />
+      <ChatContainer
+        groups={[
+          { id: "id", name: "name" },
+          { id: "id2", name: "name2" },
+        ]}
+        messages={[]}
+      />
     </div>
   );
 }
