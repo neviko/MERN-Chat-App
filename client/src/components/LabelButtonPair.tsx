@@ -3,30 +3,34 @@ import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 
 interface IProps {
-  onNicknameSet: (nickname: string) => void;
+  onTextSet: (text: string) => void;
+  buttonText: string;
+  labelText: string;
 }
 
-const ChatRegistration: React.FC<IProps> = ({ onNicknameSet }) => {
-  const [nickName, setNickName] = useState<string>("");
+export const LabelButtonPair: React.FC<IProps> = ({
+  onTextSet,
+  buttonText,
+  labelText,
+}) => {
+  const [text, setText] = useState<string>("");
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     // TODO: input validation here
     e.preventDefault();
-    onNicknameSet(nickName);
+    onTextSet(text);
   };
 
   return (
-    <div>
+    <div style={{ margin: "15px", marginBottom: "50px" }}>
       <form onSubmit={handleSubmit}>
         <TextField
           id="standard-basic"
-          label="Email or Nickname"
+          label={labelText}
           variant="standard"
-          onChange={(e) => setNickName(e.target.value)}
+          onChange={(e) => setText(e.target.value)}
         />
-        <Button type="submit">Login</Button>
+        <Button type="submit">{buttonText}</Button>
       </form>
     </div>
   );
 };
-
-export default ChatRegistration;
