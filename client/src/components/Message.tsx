@@ -1,5 +1,4 @@
 import React from "react";
-import "../css/Message.css";
 
 interface IProps {
   text: string;
@@ -19,8 +18,8 @@ export const Message: React.FC<IProps> = ({
 }) => {
   return (
     <div
-      className="message"
       style={{
+        ...styles.message,
         backgroundColor: bgColor,
         alignSelf: isShiftRight ? "flex-end" : "flex-start",
         width: "fit-content",
@@ -29,11 +28,12 @@ export const Message: React.FC<IProps> = ({
         margin: "20px",
         padding: "20px 20px",
         overflow: "auto",
+        textAlign: "left",
       }}
     >
       <div style={styles.text}>{text}</div>
       <div style={styles.sender}>
-        sent at {timestamp} by: {sender}
+        {timestamp} by: {sender}
       </div>
     </div>
   );
@@ -41,10 +41,17 @@ export const Message: React.FC<IProps> = ({
 
 const styles = {
   text: {
-    fontSize: "25px",
+    fontSize: "15px",
   },
   sender: {
-    fontSize: "15px",
+    fontSize: "10px",
     color: "dark-gray",
+  },
+  message: {
+    width: "fit-content",
+    border: "8px",
+    borderRadius: "10px 100px / 120px",
+    margin: "20px",
+    padding: "20px 20px",
   },
 };

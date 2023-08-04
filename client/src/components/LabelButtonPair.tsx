@@ -18,6 +18,7 @@ export const LabelButtonPair: React.FC<IProps> = ({
     // TODO: input validation here
     e.preventDefault();
     onTextSet(text);
+    setText("");
   };
 
   return (

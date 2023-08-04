@@ -23,6 +23,8 @@ function App() {
   return (
     <div style={{ textAlign: "center" }}>
       <h1>WeMatch Chat App</h1>
+      {nickname && <h4>Connected as: {nickname}</h4>}
+
       {!nickname ? (
         <LabelButtonPair
           buttonText="Login"

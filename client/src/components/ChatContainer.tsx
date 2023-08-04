@@ -79,14 +79,19 @@ export const ChatContainer: React.FC<IProps> = ({ nickname }) => {
       {/* groups container */}
 
       <div className="groups-container container">
+        <h2 style={{ textDecoration: "underline" }}>Chat Groups</h2>
+
         <LabelButtonPair
           buttonText="Add Group"
           labelText="New Group Name"
           onTextSet={handleNewGroupClick}
         />
-        {groups.map((groupItem) => (
+        {groups.map((groupItem, index) => (
           <div onClick={() => setSelectedGroup(groupItem)} key={groupItem.id}>
-            <GroupItem text={groupItem.name} />
+            <GroupItem
+              text={groupItem.name}
+              color={index % 2 === 0 ? "#cfe6ef" : "#dfe5dd"}
+            />
           </div>
         ))}
       </div>

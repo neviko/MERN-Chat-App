@@ -48,10 +48,16 @@ export const Chat: React.FC<IProps> = ({
             <Message
               groupId={groupId}
               text={message.text}
-              bgColor={message.sender === nickname ? "pink" : "aqua"}
+              bgColor={message.sender === nickname ? "#cfe6cb" : "#d3d3d3"}
               isShiftRight={message.sender === nickname}
               sender={message.sender}
-              timestamp={message.timestamp}
+              timestamp={new Date(message.timestamp).toLocaleTimeString(
+                "en-GB",
+                {
+                  hour: "numeric",
+                  minute: "numeric",
+                }
+              )}
             />
           );
         })}
@@ -78,19 +84,16 @@ export const Chat: React.FC<IProps> = ({
 
 const styles: { [key: string]: React.CSSProperties } = {
   chat: {
-    backgroundColor: "#ECECEC",
-    flex: 4,
+    // backgroundColor: "#ECECEC",
     overflow: "scroll",
     maxHeight: "500px",
   },
   footerInput: {
-    flex: 1,
     alignItems: "flex-start",
     alignSelf: "flex-end",
-    backgroundColor: "yellow",
-    width: "50%",
+    width: "80%",
     position: "absolute",
-    bottom: "50px",
-    margin: "20px",
+    bottom: "30px",
+    marginBottom: "20px",
   },
 };
