@@ -21,23 +21,17 @@ function App() {
   }, [nickname]);
 
   return (
-    <div className="App">
+    <div style={{ textAlign: "center" }}>
       <h1>WeMatch Chat App</h1>
-      {!nickname && (
+      {!nickname ? (
         <LabelButtonPair
           buttonText="Login"
           labelText="Insert a Nickname"
           onTextSet={(nickName: string) => setNickname(nickName)}
         />
+      ) : (
+        <ChatContainer nickname={nickname} />
       )}
-      <ChatContainer
-        nickname={nickname}
-        groups={[
-          { id: "id", name: "name" },
-          { id: "id2", name: "name2" },
-        ]}
-        messages={[]}
-      />
     </div>
   );
 }

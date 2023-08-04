@@ -36,33 +36,41 @@ export const Chat: React.FC<IProps> = ({
   };
 
   return (
-    <div style={styles.chat}>
-      {chatMessages.map((message) => {
-        return (
-          <Message
-            groupId={groupId}
-            text={message.text}
-            bgColor={message.sender === nickname ? "pink" : "aqua"}
-            isShiftRight={message.sender === nickname}
-            sender={message.sender}
-            timestamp={message.timestamp}
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <div style={styles.chat}>
+        {chatMessages.map((message) => {
+          return (
+            <Message
+              groupId={groupId}
+              text={message.text}
+              bgColor={message.sender === nickname ? "pink" : "aqua"}
+              isShiftRight={message.sender === nickname}
+              sender={message.sender}
+              timestamp={message.timestamp}
+            />
+          );
+        })}
+
+        <div style={styles.footerInput}>
+          <TextField
+            title="Message"
+            placeholder="Type a Message"
+            hiddenLabel
+            variant="filled"
+            value={sendMessage}
+            onChange={(e) => setSendMessage(e.target.value)}
+            style={{ width: "inherit" }}
           />
-        );
-      })}
 
-      <div style={styles.footerInput}>
-        <TextField
-          title="Message"
-          placeholder="Type a Message"
-          hiddenLabel
-          variant="filled"
-          value={sendMessage}
-          onChange={(e) => setSendMessage(e.target.value)}
-        />
-
-        <Button disabled={!!!sendMessage} onClick={handleSendClick}>
-          SEND
-        </Button>
+          <Button disabled={!!!sendMessage} onClick={handleSendClick}>
+            SEND
+          </Button>
+        </div>
       </div>
     </div>
   );
@@ -70,19 +78,19 @@ export const Chat: React.FC<IProps> = ({
 
 const styles: { [key: string]: React.CSSProperties } = {
   chat: {
-    display: "flex",
-    flexDirection: "column",
     backgroundColor: "#ECECEC",
-    flex: 2,
-    minHeight: "500px",
+    flex: 4,
+    overflow: "scroll",
+    maxHeight: "500px",
   },
   footerInput: {
-    height: "25px",
-    width: "100%",
+    flex: 1,
     alignItems: "flex-start",
     alignSelf: "flex-end",
+    backgroundColor: "yellow",
+    width: "50%",
     position: "absolute",
-    bottom: 0,
-    maxWidth: "inherit",
+    bottom: "50px",
+    margin: "20px",
   },
 };

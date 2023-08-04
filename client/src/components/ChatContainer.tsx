@@ -11,13 +11,11 @@ import { Chat } from "./Chat";
 import { io, Socket } from "socket.io-client";
 
 interface IProps {
-  groups: TGroup[];
-  messages: TMessage[];
   nickname: string;
 }
 let socket: any;
 
-export const ChatContainer: React.FC<IProps> = ({ messages, nickname }) => {
+export const ChatContainer: React.FC<IProps> = ({ nickname }) => {
   const [selectedGroup, setSelectedGroup] = useState<TGroup>();
   const [groups, setGroups] = useState<TGroup[]>([]);
   const [chatMessages, setChatMessages] = useState<TMessage[]>([]);
@@ -77,7 +75,7 @@ export const ChatContainer: React.FC<IProps> = ({ messages, nickname }) => {
   };
 
   return (
-    <div style={{ display: "flex" }}>
+    <div style={{ display: "flex", maxHeight: "500px" }}>
       {/* groups container */}
 
       <div className="groups-container container">
