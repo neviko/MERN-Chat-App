@@ -22,13 +22,6 @@ export const Message: React.FC<IProps> = ({
         ...styles.message,
         backgroundColor: bgColor,
         alignSelf: isShiftRight ? "flex-end" : "flex-start",
-        width: "fit-content",
-        border: "8px",
-        borderRadius: "10px 100px / 120px",
-        margin: "20px",
-        padding: "20px 20px",
-        overflow: "auto",
-        textAlign: "left",
       }}
     >
       <div style={styles.text}>{text}</div>

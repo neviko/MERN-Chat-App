@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import { ChatContainer } from "./components/ChatContainer";
 import { LabelButtonPair } from "./components/LabelButtonPair";
+import { errorMessages } from "./constants/errors";
 
 function App() {
   const [nickname, setNickname] = useState<string>("");
-
-  useEffect(() => {}, []);
 
   useEffect(() => {
     (async () => {
@@ -15,7 +14,7 @@ function App() {
           return;
         }
       } catch (e) {
-        console.log("error while fetching data");
+        console.error(errorMessages.errFetchingData);
       }
     })();
   }, [nickname]);

@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { TMessage } from "../common/types/message";
 import "../css/Chat.css";
 import { GroupItem } from "./GroupItem";
-import { Button } from "@mui/material";
 import { TGroup } from "../common/types/group";
 import axios from "axios";
 import { BASE_URL } from "../constants/url";
 import { LabelButtonPair } from "./LabelButtonPair";
 import { Chat } from "./Chat";
-import { io, Socket } from "socket.io-client";
+import { io } from "socket.io-client";
+import { errorMessages } from "../constants/errors";
+import { colors } from "../constants/style";
 
 interface IProps {
   nickname: string;
@@ -70,7 +71,7 @@ export const ChatContainer: React.FC<IProps> = ({ nickname }) => {
       console.log(newGroup);
       setGroups([...groups, newGroup]);
     } catch (e) {
-      console.error("something wrong wrong while creating a new group");
+      console.error(errorMessages.errCreatingGroup);
     }
   };
 
@@ -90,7 +91,7 @@ export const ChatContainer: React.FC<IProps> = ({ nickname }) => {
           <div onClick={() => setSelectedGroup(groupItem)} key={groupItem.id}>
             <GroupItem
               text={groupItem.name}
-              color={index % 2 === 0 ? "#cfe6ef" : "#dfe5dd"}
+              color={index % 2 === 0 ? colors.lightblue : colors.blueGray}
             />
           </div>
         ))}
@@ -98,7 +99,6 @@ export const ChatContainer: React.FC<IProps> = ({ nickname }) => {
 
       {/*messages container*/}
       <div className="messages-container container">
-        {/* messages */}
         <div>
           <Chat
             socket={socket}
@@ -107,9 +107,6 @@ export const ChatContainer: React.FC<IProps> = ({ nickname }) => {
             chatMessages={chatMessages}
           />
         </div>
-
-        {/* input text */}
-        <div></div>
       </div>
     </div>
   );

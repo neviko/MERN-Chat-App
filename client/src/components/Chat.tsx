@@ -1,8 +1,9 @@
-import { Button, Input, TextField } from "@mui/material";
-import { useState, useEffect } from "react";
+import { Button, TextField } from "@mui/material";
+import { useState } from "react";
 import { TMessage } from "../common/types/message";
 import { Message } from "./Message";
 import { Socket } from "socket.io-client";
+import { colors } from "../constants/style";
 import "../css/Chat.css";
 
 interface IProps {
@@ -48,7 +49,11 @@ export const Chat: React.FC<IProps> = ({
             <Message
               groupId={groupId}
               text={message.text}
-              bgColor={message.sender === nickname ? "#cfe6cb" : "#d3d3d3"}
+              bgColor={
+                message.sender === nickname
+                  ? colors.specialGreen
+                  : colors.specialGray
+              }
               isShiftRight={message.sender === nickname}
               sender={message.sender}
               timestamp={new Date(message.timestamp).toLocaleTimeString(
@@ -84,9 +89,11 @@ export const Chat: React.FC<IProps> = ({
 
 const styles: { [key: string]: React.CSSProperties } = {
   chat: {
-    // backgroundColor: "#ECECEC",
+    display: "flex",
+    flexDirection: "column",
     overflow: "scroll",
-    maxHeight: "500px",
+    maxHeight: "480px",
+    overflowX: "hidden",
   },
   footerInput: {
     alignItems: "flex-start",
