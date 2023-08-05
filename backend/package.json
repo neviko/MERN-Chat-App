@@ -13,6 +13,7 @@
   "author": "Nevo Sayag",
   "license": "ISC",
   "devDependencies": {
+    "@faker-js/faker": "^8.0.2",
     "@types/jest": "^29.5.3",
     "@types/node": "^18.15.5",
     "@types/supertest": "^2.0.12",
